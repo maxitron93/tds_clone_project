@@ -6,49 +6,43 @@ A clone of [towardsdatascience.com](https://towardsdatascience.com/)
 
 ### Stories App
 
-Users can read stories
-
-![Story](./readme_assets/story.PNG)
+Users can read stories.
 
 API requirements
 
 - get story by title (with associated sections, tags, claps, and author) 
 - get the number of responses to the story
 - allow reader to follow the author
+- allow user to clap for story
 
-![Response](./readme_assets/response.PNG)
+![Story](readme_assets/story.PNG)
+
+Users can view responses for each story, and write or edit their response.
 
 API requirements
-- 
+- get responses by story (with associated claps, user)
+- allow user to create a response
+- allow user to edit their response
+- allow user to delete their response
+
+![Response](readme_assets/response.PNG)
+
+Users can write new stories and publish them. Stories can include titels, text, images, quotes, gifs
 
 
 
 
-Users can...
-- create new stories and save them as draft
-- create new stories and publish them
-- publish draft stories
-- edit published stories
-- delete stories
-- add tags to stories
-- remove tags from stories
 
-Stories can include...
-- titles
-- text
-- images
-- quotes
-- gifs
 
-Users can...
-- set SEO title
-- change SEO title
-- set SEO description
-- change SEO description
 
-Users can...
-- write responses
-- edit responses
+Users can saves stories as draft, edit published stories
+
+
+
+
+Users can set and change SEO title and description. Users can also add and remove tags, and delete the whole story.
+
+
 
 
 
