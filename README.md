@@ -3,7 +3,26 @@ A clone of [towardsdatascience.com](https://towardsdatascience.com/)
 # Planning
 
 ## Functionality (backend-related)
-<strong>Stories App</strong>
+
+### Stories App
+
+Users can read stories
+
+![Story](./readme_assets/story.PNG)
+
+API requirements
+
+- get story by title (with associated sections, tags, claps, and author) 
+- get the number of responses to the story
+- allow reader to follow the author
+
+![Response](./readme_assets/response.PNG)
+
+API requirements
+- 
+
+
+
 
 Users can...
 - create new stories and save them as draft
@@ -31,9 +50,7 @@ Users can...
 - write responses
 - edit responses
 
-Users can...
-- read stories
-- read responses
+
 
 Admin can...
 - add admin tags to stories
