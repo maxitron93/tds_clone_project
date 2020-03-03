@@ -8,7 +8,7 @@ Notes on planning:
 
 ## MVP Main Entities (django apps)
 
-- <strong>Stories</strong>: Stories are at the center of this application. The main purpose of TDS is to enable people to publish stories 
+- <strong>Stories</strong>: Stories are at the center of this application. The main purpose of TDS is to enable people to publish and read stories. 
 
 - <strong>Users</strong>: This application relies on users to publish and access content.
 

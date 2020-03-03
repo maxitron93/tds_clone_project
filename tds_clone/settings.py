@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'stories.apps.StoriesConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,12 @@ WSGI_APPLICATION = 'tds_clone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql', # Change the database to postgres
+        'NAME': 'tds_clone_db', # This is the name of the database we created
+        'USER': 'postgres', # Username
+        'PASSWORD': 'password',  # Password
+        'HOST': 'localhost',  # Where is it hosted?
+        'PORT': 5432  # Port Number
     }
 }
 
