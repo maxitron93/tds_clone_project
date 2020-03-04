@@ -14,6 +14,7 @@ LICENSE_CHOICES = [
 
 # Create your models here.
 class Story(models.Model):
+    identifier = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, default='Untitled')
     content = models.TextField(default='<div></div>')

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from stories.models import Story, STATUS_CHOICES, LICENSE_CHOICES
 
-class StoriesSerializer(serializers.ModelSerializer):
+class StorySerializer(serializers.ModelSerializer):
     free_link = serializers.SerializerMethodField('return_free_link')
 
     # This is how to return a field that's not in the database
@@ -11,3 +11,5 @@ class StoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = '__all__'
+        read_only_fields = ['identifier', 'created_at', 'updated_at', 'author', 'num_claps', 'num_responses']
+
