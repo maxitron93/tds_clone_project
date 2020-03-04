@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.db.models.signals import post_save
 
 STATUS_CHOICES = [
         ('dft', 'Draft'),
@@ -14,14 +15,13 @@ LICENSE_CHOICES = [
 
 # Create your models here.
 class Story(models.Model):
-    identifier = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, default='Untitled')
     content = models.TextField(default='<div></div>')
     tags = ArrayField(models.CharField(max_length=120, blank=True), default=list)
     admin_tags = ArrayField(models.CharField(max_length=120, blank=True), default=list)
     num_claps = models.IntegerField(default=0)
-    num_responses = models.IntegerField(default=0)
+    num_comments = models.IntegerField(default=0)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='dft')
     seo_title = models.CharField(max_length=200, default='')
     seo_description = models.TextField(default='')
@@ -49,11 +49,17 @@ class AdminTag(models.Model):
 class StoryClap(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
-    count = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-class Response(models.Model):
+def update_clap_count(sender, instance, created, **kwargs):
+    if created:
+        story = instance.story
+        story.num_claps += 1
+        story.save()
+
+post_save.connect(update_clap_count, StoryClap)
+
+class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
     body = models.TextField()
@@ -61,11 +67,8 @@ class Response(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class ResponseClap(models.Model):
+class CommentClap(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    response = models.ForeignKey(Response, on_delete=models.CASCADE)
-    num_claps = models.IntegerField()
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
 
