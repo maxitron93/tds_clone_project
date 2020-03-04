@@ -15,17 +15,16 @@ LICENSE_CHOICES = [
 # Create your models here.
 class Story(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=120, default='Untitled')
+    title = models.CharField(max_length=200, default='Untitled')
     content = models.TextField(default='<div></div>')
     tags = ArrayField(models.CharField(max_length=120, blank=True), default=list)
     admin_tags = ArrayField(models.CharField(max_length=120, blank=True), default=list)
     num_claps = models.IntegerField(default=0)
     num_responses = models.IntegerField(default=0)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='dft')
-    seo_title = models.CharField(max_length=120, blank=True)
-    seo_description = models.TextField(blank=True)
+    seo_title = models.CharField(max_length=200, default='')
+    seo_description = models.TextField(default='')
     license = models.CharField(max_length=3, choices=LICENSE_CHOICES, default='mit')
-    free_link = models.URLField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -67,3 +66,5 @@ class ResponseClap(models.Model):
     num_claps = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+

@@ -2,27 +2,24 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from stories.models import Story
-from stories.serializers import StorySerializer
+from stories.serializers import StoriesSerializer
 
-def free_link_creator(title):
-    return f'https://www.google.com/search?q={"%20".join(title.split(" "))}'
-
-# Create your views here.
-class ListStories(APIView):
-
-
+class ListCreateStories(APIView):
 
     def get(self, request):
         stories = Story.objects.all()
-        serializer = StorySerializer(stories, many=True)
+        serializer = StoriesSerializer(stories, many=True)
         return Response(serializer.data)
 
-    def post(self,request):
-        serializer = StorySerializer(data=request.data)
+    def post(self, request):
+        # Serialize the incoming data
+        serializer = StoriesSerializer(data=request.data)
+
+        # Add user to the serialized data
         user_id = request.user.id
         serializer.initial_data['author'] = user_id # Add author
-        serializer.initial_data['free_link'] = free_link_creator(serializer.initial_data['title']) # Add free_link
-        serializer.initial_data['seo_title'] = serializer.initial_data['title'] # Add default seo_title
+
+        # If everything is valid, create the story
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
