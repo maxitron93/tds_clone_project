@@ -38,11 +38,18 @@ Notes on planning:
 
 ![Stories Database Design](readme_assets/stories_db.PNG)
 
+#### Stories-related Endpoints
+
+|  Functionality  | Endpoint  |
+|  x  |  x  |
+|  x  |  x  |
+|  x  |  x  |
+
 ## Users App
 
 |  Functionality  | Implementation  |
 |  :--------------------------  |  :--------------------------  |
-|  x  |  x  |
+|  User can create a story as saved or published  |  POST /api/stories/  |
 |  x  |  x  |
 |  x  |  x  |
 
