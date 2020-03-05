@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
-from stories.models import Story, StoryClap, Comment
-from stories.serializers import StorySerializer, StoryClapsSerializer, CommentSerializer
+from stories.models import Story, StoryClap, Comment, CommentClap
+from stories.serializers import StorySerializer, StoryClapsSerializer, CommentSerializer, CommentClapsSerializer
 
 class ListCreateStories(APIView):
 
@@ -113,3 +113,22 @@ class CommentDetail(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ListCreateCommentClaps(APIView):
+
+    def get(self, request, pk):
+        claps = CommentClap.objects.filter(comment=pk)
+        serializer = CommentClapsSerializer(claps, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk):
+
+        # Get clap information
+        user = request.user
+        story = Comment.objects.get(pk=pk)
+
+        # Create clap
+        clap = CommentClap(user=user, comment=story)
+        clap.save()
+
+        return Response({'response': 'clap recorded'})

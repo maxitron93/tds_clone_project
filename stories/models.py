@@ -51,13 +51,13 @@ class StoryClap(models.Model):
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-def update_clap_count(sender, instance, created, **kwargs):
+def update_story_clap_count(sender, instance, created, **kwargs):
     if created:
         story = instance.story
         story.num_claps += 1
         story.save()
 
-post_save.connect(update_clap_count, StoryClap)
+post_save.connect(update_story_clap_count, StoryClap)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -71,4 +71,12 @@ class CommentClap(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+def update_comment_clap_count(sender, instance, created, **kwargs):
+    if created:
+        comment = instance.comment
+        comment.num_claps += 1
+        comment.save()
+
+post_save.connect(update_comment_clap_count, CommentClap)
 
