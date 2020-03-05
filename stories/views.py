@@ -95,13 +95,17 @@ class ListCreateComments(APIView):
 
 class CommentDetail(APIView):
 
-    def get(self, request, story_pk, comment_pk):
-        comment = Comment.objects.get(pk=comment_pk)
+    def get_object(self, pk):
+        object = get_object_or_404(Comment, pk=pk)
+        return object
+
+    def get(self, request, pk):
+        comment = self.get_object(pk)
         serializer = CommentSerializer(comment)
         return Response(serializer.data)
 
-    def patch(self, request, story_pk, comment_pk):
-        comment = Comment.objects.get(pk=comment_pk)
+    def patch(self, request, pk):
+        comment = self.get_object(pk)
         data = {'body': request.data['body']}
         serializer = CommentSerializer(comment, data=data, partial=True)
         if serializer.is_valid():

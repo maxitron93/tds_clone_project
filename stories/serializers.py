@@ -23,3 +23,4 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+        read_only_fields = ['num_claps', 'created_at', 'updated_at']
