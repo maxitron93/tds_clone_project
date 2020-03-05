@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from stories.models import Story, STATUS_CHOICES, LICENSE_CHOICES, StoryClap
+from stories.models import Story, STATUS_CHOICES, LICENSE_CHOICES, StoryClap, Comment
 
 class StorySerializer(serializers.ModelSerializer):
     free_link = serializers.SerializerMethodField('return_free_link')
@@ -14,8 +14,12 @@ class StorySerializer(serializers.ModelSerializer):
         read_only_fields = ['author', 'num_claps', 'num_responses', 'created_at', 'updated_at']
 
 class StoryClapsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = StoryClap
         fields = '__all__'
         read_only_fields = ['user', 'story']
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'

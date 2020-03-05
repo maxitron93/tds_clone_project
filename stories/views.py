@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
-from stories.models import Story, StoryClap
-from stories.serializers import StorySerializer, StoryClapsSerializer
+from stories.models import Story, StoryClap, Comment
+from stories.serializers import StorySerializer, StoryClapsSerializer, CommentSerializer
 
 class ListCreateStories(APIView):
 
@@ -73,3 +73,39 @@ class ListCreateStoryClaps(APIView):
 
         return Response({'response': 'clap recorded'})
 
+class ListCreateComments(APIView):
+
+    def get(self, request, pk):
+        comments = Comment.objects.filter(story=pk)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk):
+        user = request.user.id
+        story = pk
+        body = request.data['body']
+        new_comment = {'user': user, 'story': story, 'body': body}
+        serializer = CommentSerializer(data=new_comment)
+
+        if serializer.is_valid():
+            serializer.save()  # Triggers the update method
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CommentDetail(APIView):
+
+    def get(self, request, story_pk, comment_pk):
+        comment = Comment.objects.get(pk=comment_pk)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+
+    def patch(self, request, story_pk, comment_pk):
+        comment = Comment.objects.get(pk=comment_pk)
+        data = {'body': request.data['body']}
+        serializer = CommentSerializer(comment, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
