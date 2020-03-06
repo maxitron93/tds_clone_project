@@ -32,18 +32,24 @@ Notes on planning:
 |  Users can search for stories  |  Search will be enabled via tags, and ranked via num_claps or date_created  |
 |  Users can CRUD a responses to stories  |   <strong>Responses Table</strong>  |
 |  Users can clap one or more times for each response  |  <strong>ResponseClaps Table</strong>  |
-|  Reding a cresponse will return num_claps  |  Include num_claps in Responses Table  |
+|  Reading a response will return num_claps  |  Include num_claps in Responses Table  |
 
 #### Stories-related Tables
 
 ![Stories Database Design](readme_assets/stories_db.PNG)
 
-#### Stories-related Endpoints
+## Profiles App
 
-|  Functionality  | Endpoint  |
-|  x  |  x  |
-|  x  |  x  |
-|  x  |  x  |
+|  Functionality  | Implementation  |
+|  :--------------------------  |  :--------------------------  |
+|  Every user as a profile table  |  <strong>Profile</strong>table  |
+|  Profile is created every time a user is created  |  Set post_save link between User and Profile  |
+|  User can change account setting  |  Have settings fields in profile table  |
+|  User can view reading history  |  <strong>ReadList</strong> table  |
+|  User can save or archive stories  |  Have three setting in ReadList: Read, Saved, Archived  |
+|  User can have followers  |  <strong>Follower</strong> table  |
+
+![Profiles Database Design](readme_assets/profiles_db.PNG)
 
 ## Users App
 
