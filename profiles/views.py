@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from profiles.models import Profile, Bookmark
+from profiles.models import Story
 from profiles.serializers import ProfileSerializer, BookmarkSerializer
 
 class GetPatchProfile(APIView):
@@ -22,6 +23,20 @@ class GetPatchProfile(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CreateBookmark(APIView):
+
+    def get_object(self, pk):
+        object = get_object_or_404(Story, pk=pk)
+        return object
+
+    def post(self, request, pk):
+        user = request.user
+        story = self.get_object(pk)
+        bookmark = Bookmark(user=user, story=story)
+        bookmark.save()
+        serializer = BookmarkSerializer(bookmark)
+        return Response(serializer.data)
 
 class ListBookmarks(APIView):
 
@@ -46,5 +61,3 @@ class GetPatchBookmark(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
