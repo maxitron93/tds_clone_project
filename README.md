@@ -42,12 +42,12 @@ Notes on planning:
 
 |  Functionality  | Implementation  |
 |  :--------------------------  |  :--------------------------  |
-|  Every user as a profile table  |  <strong>Profile</strong>table  |
+|  Every user as a profile table  |  <strong>Profiles</strong>table  |
 |  Profile is created every time a user is created  |  Set post_save link between User and Profile  |
 |  User can change account setting  |  Have settings fields in profile table  |
-|  User can view reading history  |  <strong>ReadList</strong> table  |
-|  User can save or archive stories  |  Have three setting in ReadList: Read, Saved, Archived  |
-|  User can have followers  |  <strong>Follower</strong> table  |
+|  User can view reading history  |  <strong>Bookmarks</strong> table  |
+|  User can save or archive stories  |  Have three setting in Bookmarks Table: Read, Saved, Archived  |
+|  User can have followers  |  <strong>Following</strong> table  |
 
 ![Profiles Database Design](readme_assets/profiles_db.PNG)
 
