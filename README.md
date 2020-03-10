@@ -51,23 +51,3 @@ Notes on planning:
 
 ![Profiles Database Design](readme_assets/profiles_db.PNG)
 
-## Users App
-
-|  Functionality  | Implementation  |
-|  :--------------------------  |  :--------------------------  |
-|  User can create a story as saved or published  |  POST /api/stories/  |
-|  x  |  x  |
-|  x  |  x  |
-
-#### Users-related Tables 
-
-## Collections App
-
-|  Functionality  | Implementation  |
-|  :--------------------------  |  :--------------------------  |
-|  x  |  x  |
-|  x  |  x  |
-|  x  |  x  |
-
-#### Collections Tables 
-

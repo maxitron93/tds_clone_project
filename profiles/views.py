@@ -61,3 +61,5 @@ class GetPatchBookmark(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Need to create a method to create/delete following
